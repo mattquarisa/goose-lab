@@ -1,0 +1,13 @@
+# OS / editor clutter
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Never commit credentials. These are the files the lab creates or hands out.
+gcp-oauth.keys.json
+credentials.json
+client_secret_*.json
+*.keys.json
+lab-values*.txt
+.env

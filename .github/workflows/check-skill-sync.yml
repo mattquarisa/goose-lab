@@ -1,0 +1,35 @@
+name: Keep skill copy in sync
+
+# The guide (index.html) keeps a built-in copy of the skill so it still works
+# when someone double-clicks the file. Whenever skills/email-triage/SKILL.md
+# changes, this copies it into index.html automatically, so editors never need
+# to run anything themselves.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Copy SKILL.md into index.html if they differ
+        run: python3 scripts/check_skill_sync.py --fix
+      - name: Commit the update (only if something changed)
+        run: |
+          if git diff --quiet; then
+            echo "Already in sync."
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+            git commit -am "Sync skill into index.html"
+            git push
+          fi
