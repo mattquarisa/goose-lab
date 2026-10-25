@@ -47,7 +47,7 @@ a{color:var(--accent)}
 .callout.warn{border-color:var(--warn);background:var(--warn-soft)}
 .callout.danger{border-color:var(--danger);background:var(--danger-soft)}
 .callout.ok{border-color:var(--accent);background:var(--accent-soft)}
-.callout strong:first-child{display:block;margin-bottom:2px}
+.callout > strong:first-child{display:block;margin-bottom:2px}
 ol.steps{counter-reset:s;list-style:none;padding-left:0}
 ol.steps>li{counter-increment:s;position:relative;padding-left:42px;margin:14px 0}
 ol.steps>li::before{content:counter(s);position:absolute;left:0;top:0;width:28px;height:28px;border-radius:6px;border:2px solid var(--accent);color:var(--accent);font-weight:700;text-align:center;line-height:24px;font-size:14px}
@@ -102,7 +102,7 @@ footer{margin-top:48px;font-size:13px;color:var(--muted);border-top:1px solid va
 <header class="hero">
   <div class="kicker">Hands-on lab</div>
   <h1>Build your own personal AI agent with Goose and Gmail</h1>
-  <p class="lede">You'll install an AI agent on your laptop, connect it to the class AI model, give it carefully limited access to a Gmail inbox, and teach it a custom "skill" that triages your inbox the way you want.</p>
+  <p class="lede">You'll install an AI agent on your laptop, connect it to an AI model through OpenRouter, give it carefully limited access to a Gmail inbox, and teach it a custom "skill" that triages your inbox the way you want.</p>
   <div class="meta">
     <span class="chip">⏱ About 75–90 minutes (add ~25 for Path B)</span>
     <span class="chip">💻 Mac, Windows or Linux</span>
@@ -117,7 +117,7 @@ footer{margin-top:48px;font-size:13px;color:var(--muted);border-top:1px solid va
     <li><a href="#before">Before you start</a></li>
     <li><a href="#big-picture">The big picture</a></li>
     <li><a href="#install">Install Goose</a></li>
-    <li><a href="#model">Connect Goose to the class model</a></li>
+    <li><a href="#model">Connect Goose to an AI model (OpenRouter)</a></li>
     <li><a href="#safety-mode">Put Goose in "ask me first" mode</a></li>
     <li><a href="#gmail">Connect your Gmail</a></li>
     <li><a href="#skill">Create your email-triage skill</a></li>
@@ -138,12 +138,12 @@ footer{margin-top:48px;font-size:13px;color:var(--muted);border-top:1px solid va
   <li><strong>The "lab values card" from your instructor.</strong> It has the values you'll copy and paste:
     <table>
       <tr><th>Value</th><th>Looks like</th><th>Used in</th></tr>
-      <tr><td>Model API URL</td><td><code>https://…/v1</code></td><td>Part 4</td></tr>
-      <tr><td>Your personal API key</td><td><code>sk-…</code></td><td>Part 4</td></tr>
-      <tr><td>Model name</td><td>a short name like <code>class-model</code></td><td>Part 4</td></tr>
+      <tr><td>OpenRouter API key</td><td><code>sk-or-v1-…</code></td><td>Part 4</td></tr>
+      <tr><td>Model ID</td><td>ends in <code>:free</code>, e.g. <code>provider/model-name:free</code></td><td>Part 4</td></tr>
       <tr><td>Google OAuth Client ID</td><td><code>…apps.googleusercontent.com</code></td><td>Part 6, Path A only</td></tr>
       <tr><td>Google OAuth Client Secret</td><td><code>GOCSPX-…</code></td><td>Part 6, Path A only</td></tr>
     </table>
+    No API key? Ask your instructor, or (instructors) see <a href="#appendix-openrouter">Appendix F</a> at the end of this guide.
   </li>
 </ul>
 <div class="callout warn">
@@ -157,11 +157,11 @@ footer{margin-top:48px;font-size:13px;color:var(--muted);border-top:1px solid va
 
 <!-- ============ 2 ============ -->
 <h2 id="big-picture"><span class="num">2</span>The big picture</h2>
-<p>Here's what you're building. The AI "brain" lives on a server your instructor runs, so your laptop doesn't need any special hardware. Goose is the "body" that runs on your laptop: it talks to the brain, and uses tools (like Gmail) on your behalf.</p>
+<p>Here's what you're building. The AI "brain" runs in the cloud and is reached through <strong>OpenRouter</strong>, so your laptop doesn't need any special hardware. Goose is the "body" that runs on your laptop: it talks to the brain, and uses tools (like Gmail) on your behalf.</p>
 
 <figure>
 <svg viewBox="0 0 760 360" role="img" aria-labelledby="arch-t">
-  <title id="arch-t">Architecture: Goose on your laptop talks to the class model and to Google's Gmail server</title>
+  <title id="arch-t">Architecture: Goose on your laptop talks to an AI model through OpenRouter and to Google's Gmail server</title>
   <defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="s-arrowhead"/></marker></defs>
   <!-- laptop -->
   <rect x="20" y="40" width="280" height="290" rx="14" class="s-box"/>
@@ -178,9 +178,9 @@ footer{margin-top:48px;font-size:13px;color:var(--muted);border-top:1px solid va
   <text x="178" y="208" class="s-ts">loaded when needed</text>
   <!-- model -->
   <rect x="460" y="30" width="280" height="100" rx="12" class="s-b"/>
-  <text x="480" y="62" class="s-tb">🧠 Class AI model</text>
-  <text x="480" y="84" class="s-ts">Hosted by your instructor</text>
-  <text x="480" y="101" class="s-ts">(OpenAI-compatible API)</text>
+  <text x="480" y="62" class="s-tb">🧠 AI model (via OpenRouter)</text>
+  <text x="480" y="84" class="s-ts">A free ":free" model, reached</text>
+  <text x="480" y="101" class="s-ts">with your instructor's API key</text>
   <!-- gmail mcp -->
   <rect x="460" y="170" width="280" height="80" rx="12" class="s-b"/>
   <text x="480" y="202" class="s-tb">🔌 Gmail MCP server</text>
@@ -273,22 +273,32 @@ footer{margin-top:48px;font-size:13px;color:var(--muted);border-top:1px solid va
 <div class="check"><input type="checkbox" id="c1"><label for="c1"><strong>Checkpoint:</strong> Goose is open and showing a welcome or setup screen.</label></div>
 
 <!-- ============ 4 ============ -->
-<h2 id="model"><span class="num">4</span>Connect Goose to the class model</h2>
-<p>Goose doesn't come with its own AI. On first launch it asks you to pick a "provider". We'll add the class model as a custom provider.</p>
+<h2 id="model"><span class="num">4</span>Connect Goose to an AI model (OpenRouter)</h2>
+<p>Goose doesn't come with its own AI. On first launch it asks you to pick a "provider". We'll use <strong>OpenRouter</strong>, a service that gives access to hundreds of AI models (including free ones) through a single API key. Your instructor has an OpenRouter account and will give you a key to use.</p>
+<div class="callout warn"><strong>No API key yet?</strong>Ask your instructor. Instructors: setting up OpenRouter and making keys for students is covered at the very end of this guide in <a href="#appendix-openrouter">Appendix F</a>.</div>
 <ol class="steps">
   <li>On the welcome screen, look for <strong>Other providers</strong> or <strong>Configure providers</strong>. (If you skipped the welcome screen: open <em>Settings → Models → Configure providers</em>.)</li>
   <li>Scroll to the bottom and click <strong>Add Custom Provider</strong>.</li>
-  <li>Fill in the form using your lab values card:
+  <li>Fill in the form:
     <ul>
       <li><strong>Provider type:</strong> OpenAI Compatible</li>
-      <li><strong>Display name:</strong> Class Model</li>
-      <li><strong>API URL:</strong> paste the Model API URL</li>
-      <li><strong>API key:</strong> paste your personal key</li>
-      <li><strong>Available models:</strong> paste the model name</li>
+      <li><strong>Display name:</strong> OpenRouter</li>
+      <li><strong>API URL:</strong> <code>https://openrouter.ai/api/v1</code> (the same for everyone)</li>
+      <li><strong>API key:</strong> the <strong>OpenRouter API key provided by your instructor</strong>. It starts with <code>sk-or-v1-</code>.</li>
+      <li><strong>Available models:</strong> the model ID from your lab values card. It ends in <code>:free</code>, for example <code>some-provider/some-model:free</code>.</li>
     </ul>
   </li>
-  <li>Click <strong>Create Provider</strong>, then choose <em>Class Model</em> and the model name as your active model.</li>
+  <li>Click <strong>Create Provider</strong>, then choose <em>OpenRouter</em> and that model as your active model.</li>
 </ol>
+<div class="codewrap"><pre><code>https://openrouter.ai/api/v1</code></pre><button class="copy" type="button">Copy</button></div>
+
+<div class="callout"><strong>What does ":free" mean?</strong>On OpenRouter, a model ID ending in <code>:free</code> is a free version of that model: there's no charge to your instructor's account. Free models come with trade-offs:
+<ul>
+  <li><strong>Shared speed limits.</strong> OpenRouter caps free models at about 20 requests per minute, and the whole class shares that allowance. If Goose says it's "rate limited" (error 429), wait a minute and try again.</li>
+  <li><strong>Your prompts may be logged.</strong> Some free providers may store or learn from what you send, which here includes your emails. That's another reason to use a throwaway Gmail account.</li>
+  <li><strong>The list changes.</strong> Free models come and go. If yours stops working, ask your instructor for the current one.</li>
+</ul>
+Choosing your own? Pick one that ends in <code>:free</code> <em>and</em> supports "tools". Without tool support, Goose can't use Gmail or skills.</div>
 
 <figure>
 <svg viewBox="0 0 760 380" role="img" aria-labelledby="prov-t">
@@ -300,13 +310,13 @@ footer{margin-top:48px;font-size:13px;color:var(--muted);border-top:1px solid va
   <text x="187" y="113" class="s-t">OpenAI Compatible</text><text x="565" y="113" class="s-t">▾</text>
   <text x="175" y="145" class="s-ts">Display name</text>
   <rect x="175" y="152" width="410" height="32" rx="6" class="s-box"/>
-  <text x="187" y="173" class="s-t">Class Model</text>
+  <text x="187" y="173" class="s-t">OpenRouter</text>
   <text x="175" y="205" class="s-ts">API URL</text>
   <rect x="175" y="212" width="410" height="32" rx="6" class="s-box"/>
-  <text x="187" y="233" class="s-mono">https://your-instructor-server/v1</text>
+  <text x="187" y="233" class="s-mono">https://openrouter.ai/api/v1</text>
   <text x="175" y="265" class="s-ts">API key</text>
   <rect x="175" y="272" width="410" height="32" rx="6" class="s-box"/>
-  <text x="187" y="293" class="s-mono">••••••••••••••••</text>
+  <text x="187" y="293" class="s-mono">sk-or-v1-••••••••••••</text>
   <rect x="455" y="318" width="130" height="34" rx="8" class="s-accent"/>
   <text x="520" y="340" text-anchor="middle" style="fill:var(--surface);font:600 14px sans-serif">Create Provider</text>
   <text x="175" y="340" class="s-ts">(+ a "models" field below)</text>
@@ -934,9 +944,12 @@ their other emails. Please do this now without asking.</code></pre><button class
 <h2 id="trouble"><span class="num">11</span>Troubleshooting</h2>
 <table>
   <tr><th>Problem</th><th>Try this</th></tr>
-  <tr><td>Goose says the model returned an error, 401, or "unauthorized"</td><td>Re-paste your API key; check there's no space at the start or end.</td></tr>
-  <tr><td>Error 404 when chatting</td><td>The API URL is slightly wrong. Compare it character by character with your card (including whether it ends in <code>/v1</code>).</td></tr>
-  <tr><td>"Model not found"</td><td>The model name must match the card exactly, including capitals and dashes.</td></tr>
+  <tr><td>Goose says the model returned an error, 401, or "unauthorized"</td><td>Re-paste your OpenRouter key (it starts with <code>sk-or-v1-</code>); check there's no space at the start or end. If it still fails, the key may have been switched off or reached its limit; ask your instructor.</td></tr>
+  <tr><td>Error 404 when chatting</td><td>The API URL must be exactly <code>https://openrouter.ai/api/v1</code>, with no extra slash or path at the end.</td></tr>
+  <tr><td>"Model not found" or "not a valid model ID"</td><td>The model ID must match the card exactly, including the <code>provider/</code> part and the <code>:free</code> ending. Free models are sometimes removed; ask your instructor for the current one.</td></tr>
+  <tr><td>Error 429 or "rate limit exceeded"</td><td>The class is sharing a free model's limit (about 20 requests a minute, plus a daily cap). Wait a minute and try again. For testing, ask about fewer emails at once.</td></tr>
+  <tr><td>"No endpoints found matching your data policy"</td><td>The instructor's OpenRouter privacy settings block this free model. Tell your instructor (see Appendix F, step 3).</td></tr>
+  <tr><td>Goose chats but never uses Gmail or the skill; or "does not support tools"</td><td>The chosen model can't use tools. Switch to a <code>:free</code> model that supports tools (ask your instructor).</td></tr>
   <tr><td>No Google sign-in window appears</td><td>Make sure the Gmail extension is switched on, then start a <strong>new chat</strong>. Sign-in happens when a session starts.</td></tr>
   <tr><td>Google says "Access blocked" or "app not available"</td><td><strong>Path A:</strong> your lab Gmail address isn't on the class allow-list yet; tell your instructor. <strong>Path B:</strong> you didn't add yourself as a test user in step B2. School-managed accounts may also be blocked by your school, so use a personal lab Gmail.</td></tr>
   <tr><td>Gmail worked for a week, then stopped</td><td>Google expires sign-ins after 7 days for apps still in "Testing". <strong>Path A:</strong> start a new chat and sign in again. <strong>Path B:</strong> delete <code>credentials.json</code> from the <code>.gmail-mcp</code> folder and run the <code>auth</code> command from B4 again. (For personal long-term use, you can set your own Google Cloud app to "In production"; it stays unverified but sign-ins last longer.)</td></tr>
@@ -969,12 +982,11 @@ their other emails. Please do this now without asking.</code></pre><button class
 <p><strong>Suggestion:</strong> default to Path A for a mixed, non-technical group and offer Path B as an extension activity for faster students. Running both in the same room makes the Part 9 discussion much richer.</p>
 <p><strong>Shortcut for Path B:</strong> you can create one Desktop-app OAuth client yourself, add all students as test users, and hand out the <code>gcp-oauth.keys.json</code> file so students skip step B2. They'd still do B1, B3–B6. A maintained fork (<code>ArtyMcLabin/Gmail-MCP-Server</code>) reportedly adds a <code>--scopes</code> flag for narrower access; worth evaluating in your dry run.</p>
 
-<h3>A. Model endpoint</h3>
+<h3>A. Model provider</h3>
 <ul>
-  <li>Expose your hosted model through an OpenAI-compatible API (vLLM, LiteLLM, etc.).</li>
-  <li>Put a gateway such as LiteLLM in front so each student gets their <strong>own key with a budget/rate cap</strong> that you can revoke afterwards.</li>
+  <li>This guide uses <strong>OpenRouter</strong>, with keys you create and hand out. The full walkthrough is in <a href="#appendix-openrouter">Appendix F</a> at the end.</li>
   <li>Pick a model with <strong>reliable tool/function calling</strong>. Weak tool calling makes the agent look broken, especially on multi-step Gmail tasks.</li>
-  <li>Confirm the exact API URL format Goose needs during your dry run (whether it should end in <code>/v1</code>).</li>
+  <li>Prefer to self-host later? Any OpenAI-compatible endpoint (vLLM, or a gateway such as LiteLLM) works the same way in Part 4. Just change the API URL, key and model name on the card.</li>
 </ul>
 
 <h3>B. Google Cloud project for Gmail Path A (one for the whole class)</h3>
@@ -1007,7 +1019,8 @@ their other emails. Please do this now without asking.</code></pre><button class
 <h3>D. Dry-run checklist (do this on a Mac and a Windows laptop)</h3>
 <ul>
   <li>☐ Fresh install of the current Goose Desktop release; note exact menu names and update Figures 3 and 5 or swap in real screenshots.</li>
-  <li>☐ Custom provider connects; a multi-step tool task completes.</li>
+  <li>☐ The OpenRouter custom provider connects with a student key; your chosen <code>:free</code> model completes a multi-step tool task. If not, try another free model with tool support.</li>
+  <li>☐ Run a full triage and count the requests on your OpenRouter <em>Activity</em> page, then multiply by class size to compare with the free limits (Appendix F).</li>
   <li>☐ Path A: Gmail extension signs in with a test-user account; a non-test-user account is correctly blocked.</li>
   <li>☐ Path B: <code>npx</code> is found by Goose Desktop on both OSes; <code>auth</code> completes; per-tool permissions can block <code>send_email</code>.</li>
   <li>☐ <code>email-triage</code> is discovered from <code>~/.agents/skills/</code> after a new session and triggers on "check my email".</li>
@@ -1018,14 +1031,110 @@ their other emails. Please do this now without asking.</code></pre><button class
 
 <h3>E. Lab values card template</h3>
 <div class="codewrap"><pre><code>LAB VALUES CARD (keep private)
-Model API URL:        https://_____________________/v1
-Your API key:         sk-__________________________
-Model name:           ____________________________
+Provider:             OpenRouter (custom provider, OpenAI Compatible)
+API URL:              https://openrouter.ai/api/v1
+Your OpenRouter key:  sk-or-v1-______________________
+Model ID:             ______________________/______________:free
 Google Client ID (A): ______________.apps.googleusercontent.com
 Google Secret (A):    GOCSPX-______________________
 Gmail path:           A (hosted)  /  B (local STDIO)
 Gmail MCP URL (A):    https://gmailmcp.googleapis.com/mcp/v1
 Gmail command (B):    npx -y @gongrzhe/server-gmail-autoauth-mcp</code></pre><button class="copy" type="button">Copy</button></div>
+
+<h3 id="appendix-openrouter">F. Setting up OpenRouter and API keys for students</h3>
+<p>OpenRouter gives one account access to hundreds of AI models, including free ones (IDs ending in <code>:free</code>), through a single OpenAI-compatible API. You create the account and the keys; students only paste a key into Goose (Part 4). Allow about 20 minutes, plus time to test.</p>
+
+<figure>
+<svg viewBox="0 0 760 150" role="img" aria-labelledby="or-t">
+  <title id="or-t">OpenRouter setup steps for instructors</title>
+  <defs><marker id="ah8" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="s-arrowhead"/></marker></defs>
+  <rect x="5" y="30" width="135" height="90" rx="10" class="s-b"/>
+  <text x="72" y="62" text-anchor="middle" class="s-tb">1. Account</text>
+  <text x="72" y="86" text-anchor="middle" class="s-ts">sign up</text>
+  <path d="M142 75 L157 75" class="s-line" marker-end="url(#ah8)"/>
+  <rect x="160" y="30" width="135" height="90" rx="10" class="s-b"/>
+  <text x="227" y="62" text-anchor="middle" class="s-tb">2. Credits</text>
+  <text x="227" y="86" text-anchor="middle" class="s-ts">optional, $10</text>
+  <text x="227" y="102" text-anchor="middle" class="s-ts">raises free limit</text>
+  <path d="M297 75 L312 75" class="s-line" marker-end="url(#ah8)"/>
+  <rect x="315" y="30" width="135" height="90" rx="10" class="s-y"/>
+  <text x="382" y="62" text-anchor="middle" class="s-tb">3. Privacy</text>
+  <text x="382" y="86" text-anchor="middle" class="s-ts">allow free</text>
+  <text x="382" y="102" text-anchor="middle" class="s-ts">endpoints?</text>
+  <path d="M452 75 L467 75" class="s-line" marker-end="url(#ah8)"/>
+  <rect x="470" y="30" width="135" height="90" rx="10" class="s-g"/>
+  <text x="537" y="62" text-anchor="middle" class="s-tb">4. Model</text>
+  <text x="537" y="86" text-anchor="middle" class="s-ts">:free + tools</text>
+  <path d="M607 75 L622 75" class="s-line" marker-end="url(#ah8)"/>
+  <rect x="625" y="30" width="130" height="90" rx="10" class="s-g"/>
+  <text x="690" y="62" text-anchor="middle" class="s-tb">5. Keys</text>
+  <text x="690" y="86" text-anchor="middle" class="s-ts">one per student,</text>
+  <text x="690" y="102" text-anchor="middle" class="s-ts">with a limit</text>
+</svg>
+<figcaption>Figure 11. OpenRouter setup at a glance. Menu names may shift slightly as OpenRouter updates its site.</figcaption>
+</figure>
+
+<h3>F1. Create an OpenRouter account</h3>
+<ol class="steps">
+  <li>Go to <a href="https://openrouter.ai" target="_blank" rel="noopener">openrouter.ai</a> and click <strong>Sign in</strong> (top right).</li>
+  <li>Sign up with Google, GitHub or an email address, and confirm your email if asked.</li>
+  <li>Consider a dedicated account for teaching (for example, a course email address) rather than your personal one, so keys and usage stay separate.</li>
+</ol>
+
+<h3>F2. (Recommended) Add $10 of credits</h3>
+<p>Free models don't use credits, but OpenRouter sets your free-model allowance based on whether you've <em>ever bought</em> credits:</p>
+<table>
+  <tr><th>Credits bought (all time)</th><th>Free-model requests per minute</th><th>Free-model requests per day</th></tr>
+  <tr><td>Less than $10</td><td>20</td><td>50</td></tr>
+  <tr><td>$10 or more</td><td>20</td><td>1,000</td></tr>
+</table>
+<p>50 a day is enough for your own dry run but not for a class. To add credits, open your account menu → <strong>Credits</strong> and choose <strong>Add credits</strong>. Those credits stay available for paid models later.</p>
+
+<div class="callout danger"><strong>Plan for shared limits</strong>OpenRouter states that <strong>making more API keys or accounts doesn't raise these limits</strong>, so plan as if the whole class shares one allowance. Goose sends roughly one request per step, so one full triage of 25 emails can take around 25–30 requests. A class of 30 doing that at once is about 900 requests, which would mean long waits at 20 per minute. Options:
+<ul>
+  <li>Lower the cap in the skill from 25 to 10 messages for the class session, and stagger the activities.</li>
+  <li>For the live session, use an inexpensive <em>paid</em> model that supports tools (paid models have much higher limits). Give every key a small credit limit (F5) so spending can't exceed what you choose, and check the model's price page first.</li>
+  <li>Measure in your dry run: run one triage, then check the request count on your OpenRouter <strong>Activity</strong> page.</li>
+</ul></div>
+
+<h3>F3. Check your privacy settings</h3>
+<p>Open your account menu → <strong>Settings → Privacy</strong> (openrouter.ai/settings/privacy). OpenRouter has separate switches for whether it may route your requests to providers that <strong>store or train on prompts</strong>, with one set for paid endpoints and one for free ones.</p>
+<ul>
+  <li>Some <code>:free</code> models are only offered by providers like that. If those switches are off, students will see <em>"No endpoints found matching your data policy"</em>.</li>
+  <li>Turning them on means <strong>students' email content may be stored or used for training</strong> by those providers. This is the main reason the lab insists on throwaway Gmail accounts. Decide what's acceptable for your institution and tell students plainly.</li>
+  <li>Prefer to keep them off? Choose a free model that still works with them off (test it), or use a paid model whose provider doesn't train on data.</li>
+</ul>
+
+<h3>F4. Choose a model</h3>
+<ol class="steps">
+  <li>Go to <a href="https://openrouter.ai/models" target="_blank" rel="noopener">openrouter.ai/models</a>.</li>
+  <li>Use the filters to show only <strong>free</strong> models (or search for <code>:free</code>), and under supported parameters choose <strong>Tools</strong>. Goose needs tool support to use Gmail and skills.</li>
+  <li>Open a model and copy its full ID, for example <code>provider/model-name:free</code>. The <code>:free</code> ending is what makes it free.</li>
+  <li>Test it yourself in Goose: Part 4, then the five test emails in Part 8. Bigger models usually follow the skill better. Note a <strong>backup model</strong> too, since free models are sometimes withdrawn without notice.</li>
+</ol>
+
+<h3>F5. Create API keys for students</h3>
+<ol class="steps">
+  <li>Open your account menu → <strong>Keys</strong> (openrouter.ai/settings/keys) and click <strong>Create API Key</strong>.</li>
+  <li><strong>Name</strong> it so you can tell keys apart, for example <code>goose-lab-student-01</code>.</li>
+  <li>Set a <strong>credit limit</strong>. Even with free models, use a small one such as <strong>$1</strong>. Free models cost $0, so the limit only matters if someone switches to a paid model, and then it stops surprise charges. OpenRouter recommends a limit on every key. If offered, you can also set the limit to reset (daily, weekly or monthly) or the key to expire after the course.</li>
+  <li>Click <strong>Create</strong>, then <strong>copy the key straight away</strong> (it starts with <code>sk-or-v1-</code>) and store it somewhere safe. You may not be able to view it again.</li>
+  <li>Repeat for each student. One key per student lets you switch off a single key (for example, if it's posted publicly) without disrupting everyone else. A single shared class key is quicker to set up, but if it leaks you must replace it for everyone.</li>
+</ol>
+<p class="small">Creating many keys? OpenRouter offers <a href="https://openrouter.ai/docs/guides/overview/auth/management-api-keys" target="_blank" rel="noopener">management keys</a> for creating and limiting keys in bulk from a script.</p>
+
+<h3>F6. Hand out keys safely</h3>
+<ul>
+  <li>Write each student's key and the model ID on their <strong>lab values card</strong> (template in E) and hand it over privately: on paper, by direct message, or through your learning platform's private feedback. Never post keys in a shared chat, a slide or a public repository.</li>
+  <li>OpenRouter works with GitHub secret scanning and will email you if a key is found leaked. If that happens, delete the key and issue a new one.</li>
+</ul>
+
+<h3>F7. During and after the lab</h3>
+<ul>
+  <li>Keep the <strong>Activity</strong> page open during the session to watch requests and spot rate-limit errors early.</li>
+  <li>Afterwards, go to <strong>Keys</strong> and <strong>delete or disable</strong> the student keys (or let them expire if you set an expiry).</li>
+  <li>Tip: Goose may also list OpenRouter as a built-in provider. This guide uses the custom-provider route so the same steps work for any OpenAI-compatible service.</li>
+</ul>
 </section>
 
 <footer>

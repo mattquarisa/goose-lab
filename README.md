@@ -39,7 +39,7 @@ Or use the **⬇ Download SKILL.md** button inside the lab guide. Either way, th
 | Part | What learners do |
 |---|---|
 | 1–2 | Get ready; learn how the AI model, Goose, extensions and skills fit together |
-| 3–5 | Install Goose, connect it to the class AI model, turn on "ask me first" mode |
+| 3–5 | Install Goose, connect it to a free AI model through OpenRouter, turn on "ask me first" mode |
 | 6 | Connect Gmail by one of two paths: **A**, Google's hosted Gmail server (simplest), or **B**, a Gmail program running on the laptop |
 | 7–8 | Install, test and customize the email-triage skill |
 | 9 | A safety experiment: can an email trick the agent? |
@@ -131,7 +131,7 @@ curl -fsSL -o ~/.agents/skills/email-triage/SKILL.md \
 
 ## ⚠️ Never upload keys or passwords here
 
-The lab uses AI model API keys, Google sign-in files and Gmail accounts. **None of these belong in this repository.** Anything in a public repository can be seen by anyone, and automated bots look for leaked keys within minutes.
+The lab uses OpenRouter API keys, Google sign-in files and Gmail accounts. **None of these belong in this repository.** Anything in a public repository can be seen by anyone, and automated bots look for leaked keys within minutes.
 
 - Hand out the filled-in **lab values card** privately (on paper, or by direct message), never by uploading it.
 - Never upload files named like `client_secret_….json`, `gcp-oauth.keys.json` or `credentials.json`.
@@ -141,7 +141,7 @@ The lab uses AI model API keys, Google sign-in files and Gmail accounts. **None 
 
 Before your session, read the **instructor appendix** at the end of the guide. It covers:
 
-- serving the AI model, ideally with a separate, spending-capped key per learner;
+- setting up **OpenRouter** (Appendix F): creating the account, choosing a free (`:free`) model that supports tools, and making a spending-capped API key for each learner. Note that free models share a small rate limit across the whole class;
 - choosing **Gmail Path A** (you set up one Google Cloud project for the class) or **Path B** (each learner sets up their own);
 - a **dry-run checklist**. Please try it on at least one Mac and one Windows laptop, because Goose's menus change between versions.
 
