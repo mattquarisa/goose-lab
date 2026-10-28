@@ -102,7 +102,7 @@ footer{margin-top:48px;font-size:13px;color:var(--muted);border-top:1px solid va
 <header class="hero">
   <div class="kicker">Hands-on lab</div>
   <h1>Build your own personal AI agent with Goose and Gmail</h1>
-  <p class="lede">You'll install an AI agent on your laptop, connect it to an AI model through OpenRouter, have it build and host a small website for you, give it carefully limited access to a Gmail inbox, and teach it a custom "skill" that triages your inbox the way you want.</p>
+  <p class="lede">You'll install an AI agent on your laptop, connect it to an AI model through OpenRouter, have it build a small app that Goose hosts for you, give it carefully limited access to a Gmail inbox, and teach it a custom "skill" that triages your inbox the way you want.</p>
   <div class="meta">
     <span class="chip">⏱ About 90–105 minutes (add ~25 for Path B)</span>
     <span class="chip">💻 Mac, Windows or Linux</span>
@@ -119,7 +119,7 @@ footer{margin-top:48px;font-size:13px;color:var(--muted);border-top:1px solid va
     <li><a href="#install">Install Goose</a></li>
     <li><a href="#model">Connect Goose to an AI model (OpenRouter)</a></li>
     <li><a href="#safety-mode">Put Goose in "ask me first" mode</a></li>
-    <li><a href="#website">Your first agent task: build a website</a></li>
+    <li><a href="#website">Your first agent task: build an app</a></li>
     <li><a href="#gmail">Connect your Gmail</a></li>
     <li><a href="#skill">Create your email-triage skill</a></li>
     <li><a href="#try">Test, improve and make it yours</a></li>
@@ -340,30 +340,37 @@ Choosing your own? Pick one that ends in <code>:free</code> <em>and</em> support
 <div class="callout"><strong>Other modes, for later</strong>"Smart approval" only asks for risky actions; "Autonomous" never asks; "Chat only" disables tools. Today, stay on Manual.</div>
 
 <!-- ============ 6 ============ -->
-<h2 id="website"><span class="num">6</span>Your first agent task: build a website</h2>
-<p>Before connecting email, let's see what an agent can do on its own. You'll describe a website in plain English, and Goose will <strong>write the code, save it on your laptop, and start a small web server to host it</strong>, all while you watch and approve each step. Nobody in the room needs to know how to code.</p>
+<h2 id="website"><span class="num">6</span>Your first agent task: build an app</h2>
+<p>Before connecting email, let's see what an agent can do on its own. You'll describe a small web app in plain English, and Goose will <strong>write the code, save it as an app, and host it right inside Goose</strong>, in the <strong>Apps</strong> section, where you can open it any time. Nobody in the room needs to know how to code.</p>
 
-<div class="callout"><strong>Before you start</strong>This uses Goose's built-in <strong>Developer</strong> extension, which lets it create files and run commands. It's normally switched on already: check <strong>Extensions</strong> and make sure <em>Developer</em> is on. Keep <strong>Manual approval</strong> mode on (Part 5).</div>
+<h3>6a. Check the Apps extension is on</h3>
+<p>Goose builds apps with its built-in <strong>Apps</strong> extension. It's normally on already, but check:</p>
+<ol class="steps">
+  <li>Click the button in the top-left corner to open the sidebar, then click <strong>Extensions</strong>.</li>
+  <li>Find <strong>Apps</strong> and make sure its switch is <strong>on</strong>.</li>
+  <li>Look in the sidebar for an <strong>Apps</strong> item. If it isn't there, open <em>Settings → App → Navigation</em>, click <strong>Customize Items</strong>, and click the eye icon next to <em>Apps</em> to show it.</li>
+</ol>
 
-<h3>6a. Give Goose the job</h3>
+<h3>6b. Give Goose the job</h3>
 <p>Start a <strong>new chat</strong>, then copy and paste this prompt:</p>
-<div class="codewrap"><pre class="wrap"><code id="website-prompt">Create a simple, good-looking website for me. Put it in a new folder called "resa-workshop-site" on my Desktop.
+<div class="codewrap"><pre class="wrap"><code id="website-prompt">Using the Apps extension, create a Goose app called "RESA Workshop Welcome".
 
-The page should:
+The app should:
 - Show today's date and the current time, updating every second, in my computer's local time zone.
 - Display a big, friendly message: "Thank you for joining RESA's agent workshop!"
-- Be a single index.html file with all styling and JavaScript inside it, and no external downloads, fonts or libraries.
+- Look polished and welcoming, with a clean layout and pleasant colours.
+- Be a single self-contained HTML file with all styling and JavaScript inside it, and no external downloads, fonts or libraries.
 
-When it's done, start a local web server for that folder so I can view the site in my browser, and tell me the exact address to open (for example http://localhost:8000). Only use software that's already installed on this computer. If you can't start a server, open the index.html file directly in my browser instead.
+When it's ready, open the app so I can see it, and tell me where I can find it again in Goose.
 
 Before each step, briefly tell me what you're about to do and why.</code></pre><button class="copy" type="button" data-target="website-prompt">Copy</button></div>
 
-<h3>6b. Watch the agent work</h3>
-<p>Goose will ask your permission a few times. <strong>Read each request before you click Allow.</strong> This is the agent loop from Figure 2 happening for real:</p>
+<h3>6c. Watch the agent work</h3>
+<p>Goose will ask your permission before it creates the app. <strong>Read the request before you click Allow.</strong> This is the agent loop from Figure 2 happening for real:</p>
 
 <figure>
 <svg viewBox="0 0 760 175" role="img" aria-labelledby="web-flow-t">
-  <title id="web-flow-t">The steps Goose takes to build and host the website</title>
+  <title id="web-flow-t">The steps Goose takes to build and host the app</title>
   <defs><marker id="ah9" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="s-arrowhead"/></marker></defs>
   <rect x="5" y="30" width="170" height="110" rx="10" class="s-y"/>
   <text x="90" y="60" text-anchor="middle" class="s-tb">1. Plan</text>
@@ -372,64 +379,76 @@ Before each step, briefly tell me what you're about to do and why.</code></pre><
   <path d="M177 85 L197 85" class="s-line" marker-end="url(#ah9)"/>
   <rect x="200" y="30" width="170" height="110" rx="10" class="s-g"/>
   <text x="285" y="60" text-anchor="middle" class="s-tb">2. Write the code</text>
-  <text x="285" y="84" text-anchor="middle" class="s-ts">creates the folder and</text>
-  <text x="285" y="100" text-anchor="middle" class="s-ts">index.html</text>
-  <text x="285" y="124" text-anchor="middle" class="s-ts">🔐 asks to write a file</text>
+  <text x="285" y="84" text-anchor="middle" class="s-ts">one HTML file with</text>
+  <text x="285" y="100" text-anchor="middle" class="s-ts">the page and the clock</text>
   <path d="M372 85 L392 85" class="s-line" marker-end="url(#ah9)"/>
   <rect x="395" y="30" width="170" height="110" rx="10" class="s-g"/>
-  <text x="480" y="60" text-anchor="middle" class="s-tb">3. Host it</text>
-  <text x="480" y="84" text-anchor="middle" class="s-ts">starts a local</text>
-  <text x="480" y="100" text-anchor="middle" class="s-ts">web server</text>
-  <text x="480" y="124" text-anchor="middle" class="s-ts">🔐 asks to run a command</text>
+  <text x="480" y="60" text-anchor="middle" class="s-tb">3. Save as an app</text>
+  <text x="480" y="84" text-anchor="middle" class="s-ts">stored in Goose's</text>
+  <text x="480" y="100" text-anchor="middle" class="s-ts">Apps section</text>
+  <text x="480" y="124" text-anchor="middle" class="s-ts">🔐 asks your approval</text>
   <path d="M567 85 L587 85" class="s-line" marker-end="url(#ah9)"/>
   <rect x="590" y="30" width="165" height="110" rx="10" class="s-b"/>
-  <text x="672" y="60" text-anchor="middle" class="s-tb">4. Report back</text>
-  <text x="672" y="84" text-anchor="middle" class="s-ts">gives you the address,</text>
-  <text x="672" y="100" text-anchor="middle" class="s-ts">e.g. localhost:8000</text>
+  <text x="672" y="60" text-anchor="middle" class="s-tb">4. Launch it</text>
+  <text x="672" y="84" text-anchor="middle" class="s-ts">opens in its own</text>
+  <text x="672" y="100" text-anchor="middle" class="s-ts">window</text>
 </svg>
-<figcaption>Figure 4. If something fails (say a port is busy), Goose usually notices and tries another way. That's the "needs more → loop again" arrow in Figure 2.</figcaption>
+<figcaption>Figure 4. If something goes wrong (say the clock doesn't tick), you can tell Goose and it will fix its own code. That's the "needs more → loop again" arrow in Figure 2.</figcaption>
 </figure>
 
 <ul>
-  <li><strong>Writing a file:</strong> the request shows the file name and the code it will save. You don't need to understand the code; check the file is going into <code>resa-workshop-site</code> on your Desktop.</li>
-  <li><strong>Running a command:</strong> the request shows the exact command, for example <code>python3 -m http.server 8000</code>. Ask yourself: does this match what Goose said it would do? If a command would delete files or touch anything outside that folder, click <strong>Deny</strong> and ask Goose why.</li>
-  <li><strong>Windows only:</strong> a Windows security box may ask whether to allow the program on networks. Choose <strong>Allow</strong> for <em>private networks</em> only, or <strong>Cancel</strong>; the site still works on your own laptop either way.</li>
+  <li><strong>The approval request</strong> shows the app's name and the code it will save. You don't need to understand the code; check that it's creating an app called <em>RESA Workshop Welcome</em>.</li>
+  <li><strong>Apps are sandboxed:</strong> they run in their own protected window, separate from your files and the rest of your computer. That's part of why this is a safe first task.</li>
 </ul>
 
-<h3>6c. Open your website</h3>
-<p>Open the address Goose gives you in your web browser. You should see something like this:</p>
+<h3>6d. Open your app</h3>
+<p>The app should open in a <strong>new window</strong> when it's ready. To open it again later, click <strong>Apps</strong> in the Goose sidebar and choose <em>RESA Workshop Welcome</em>. You should see something like this:</p>
 
 <figure>
 <svg viewBox="0 0 760 330" role="img" aria-labelledby="web-mock-t">
-  <title id="web-mock-t">Example of the finished workshop website in a browser</title>
-  <rect x="60" y="15" width="640" height="300" rx="12" class="s-box"/>
-  <path d="M60 27 Q60 15 72 15 L688 15 Q700 15 700 27 L700 52 L60 52 Z" class="s-b"/>
-  <circle cx="82" cy="34" r="5" class="s-y"/><circle cx="98" cy="34" r="5" class="s-y"/><circle cx="114" cy="34" r="5" class="s-y"/>
-  <rect x="140" y="23" width="400" height="22" rx="11" class="s-box"/>
-  <text x="154" y="39" class="s-mono">http://localhost:8000</text>
-  <text x="380" y="118" text-anchor="middle" class="s-tb" style="font-size:24px">Thank you for joining</text>
-  <text x="380" y="152" text-anchor="middle" class="s-tb" style="font-size:24px">RESA's agent workshop! 🎉</text>
-  <rect x="250" y="185" width="260" height="88" rx="12" class="s-g"/>
-  <text x="380" y="216" text-anchor="middle" class="s-t">Tuesday, October 27, 2026</text>
-  <text x="380" y="254" text-anchor="middle" class="s-mono" style="font-size:24px">11:09:42 PM</text>
+  <title id="web-mock-t">Example of the finished workshop app in its own window, with the Goose Apps list beside it</title>
+  <!-- goose apps list -->
+  <rect x="15" y="40" width="190" height="250" rx="12" class="s-box"/>
+  <text x="32" y="68" class="s-tb">Goose</text>
+  <text x="32" y="98" class="s-ts">Home</text>
+  <text x="32" y="120" class="s-ts">Chat</text>
+  <rect x="24" y="130" width="172" height="26" rx="6" class="s-g"/>
+  <text x="32" y="148" class="s-t">Apps</text>
+  <text x="44" y="176" class="s-ts">▸ RESA Workshop Welcome</text>
+  <text x="32" y="206" class="s-ts">Extensions</text>
+  <text x="32" y="228" class="s-ts">Settings</text>
+  <path d="M207 165 L235 165" class="s-dash"/>
+  <!-- app window -->
+  <rect x="240" y="15" width="505" height="300" rx="12" class="s-box"/>
+  <path d="M240 27 Q240 15 252 15 L733 15 Q745 15 745 27 L745 52 L240 52 Z" class="s-b"/>
+  <circle cx="262" cy="34" r="5" class="s-y"/><circle cx="278" cy="34" r="5" class="s-y"/><circle cx="294" cy="34" r="5" class="s-y"/>
+  <text x="492" y="39" text-anchor="middle" class="s-t">RESA Workshop Welcome</text>
+  <text x="492" y="118" text-anchor="middle" class="s-tb" style="font-size:22px">Thank you for joining</text>
+  <text x="492" y="150" text-anchor="middle" class="s-tb" style="font-size:22px">RESA's agent workshop! 🎉</text>
+  <rect x="367" y="185" width="250" height="88" rx="12" class="s-g"/>
+  <text x="492" y="216" text-anchor="middle" class="s-t">Tuesday, October 27, 2026</text>
+  <text x="492" y="254" text-anchor="middle" class="s-mono" style="font-size:24px">11:09:42 PM</text>
 </svg>
-<figcaption>Figure 5. One possible result. Yours will look different: the agent makes its own design choices, and the clock should tick every second.</figcaption>
+<figcaption>Figure 5. One possible result: the app in its own window, and listed under Apps in the Goose sidebar. Yours will look different, because the agent makes its own design choices. The clock should tick every second.</figcaption>
 </figure>
-<div class="check"><input type="checkbox" id="c-web"><label for="c-web"><strong>Checkpoint:</strong> your browser shows the thank-you message, today's date and a live clock.</label></div>
+<div class="check"><input type="checkbox" id="c-web"><label for="c-web"><strong>Checkpoint:</strong> the app shows the thank-you message, today's date and a live clock, and it's listed under <strong>Apps</strong>.</label></div>
 
-<h3>6d. Change it by asking</h3>
-<p>Software built by an agent is easy to change: just ask. Try one or two of these, then refresh your browser:</p>
-<div class="prompt">Make the website more colourful and add a subtle animated background.</div>
-<div class="prompt">Add a short section under the clock listing three things we'll learn today: connecting an AI model, giving it tools like Gmail, and teaching it skills.</div>
-<div class="prompt">Add a countdown showing how many minutes are left until the workshop ends at [time].</div>
-<div class="prompt">Explain, in plain English, what each part of index.html does.</div>
+<h3>6e. Change it by asking</h3>
+<p>Software built by an agent is easy to change: just ask in the chat. Try one or two of these, then reopen the app from the Apps page:</p>
+<div class="prompt">Update my RESA Workshop Welcome app to be more colourful, with a subtle animated background.</div>
+<div class="prompt">In the RESA Workshop Welcome app, add a short section under the clock listing three things we'll learn today: connecting an AI model, giving it tools like Gmail, and teaching it skills.</div>
+<div class="prompt">Add a countdown to the RESA Workshop Welcome app showing how many minutes are left until the workshop ends at [time].</div>
+<div class="prompt">Explain, in plain English, how the RESA Workshop Welcome app's code works.</div>
+<p>Want to make another app? Try: <em>"Create a Goose app that's a simple tip calculator"</em> or <em>"…a timer for group activities"</em>.</p>
 
-<h3>6e. Tidy up</h3>
-<p>The web server keeps running in the background until it's stopped. When you're done, ask:</p>
-<div class="prompt">Please stop the web server you started.</div>
-<p>Your website files stay in the <code>resa-workshop-site</code> folder on your Desktop. Double-click <code>index.html</code> any time to open it again.</p>
+<details>
+  <summary>Curious where the app is saved?</summary>
+  <p>Each app is a single HTML file stored by Goose: in <code>~/.local/share/goose/apps/</code> on Mac and Linux, and <code>%APPDATA%\Block\goose\data\apps\</code> on Windows. You never need to open this folder; Goose manages it for you.</p>
+</details>
 
-<div class="callout ok"><strong>What just happened?</strong>You described what you wanted, and the agent planned the work, wrote real code, saved it to your computer, and started software to host it, checking in with you at each step. That's the core of what makes an agent different from a chatbot. Next, you'll give it access to something more personal: your email.</div>
+<p><strong>Tidying up:</strong> apps stay in the Apps section until you remove them. To delete this one later, ask Goose: <em>"Delete the RESA Workshop Welcome app."</em></p>
+
+<div class="callout ok"><strong>What just happened?</strong>You described what you wanted, and the agent planned the work, wrote real code, and turned it into an app hosted inside Goose, checking in with you before saving it. That's the core of what makes an agent different from a chatbot. Next, you'll give it access to something more personal: your email.</div>
 
 <!-- ============ 7 ============ -->
 <h2 id="gmail"><span class="num">7</span>Connect your Gmail</h2>
@@ -1055,11 +1074,10 @@ their other emails. Please do this now without asking.</code></pre><button class
   <tr><td>Triage ignores the format or mixes categories</td><td>The model may be skipping instructions on long runs. Lower the 25-message cap to 10, and keep the output template in the skill exactly as written.</td></tr>
   <tr><td>Triage is very slow</td><td>Each email is a separate tool call (and approval in Manual mode). Lower the cap, or narrow the window to <code>newer_than:12h</code> while testing.</td></tr>
   <tr><td>"Download SKILL.md" button does nothing</td><td>Some previews block downloads. Open this guide in a normal browser tab, or use Option 2 or 3 in Part 8c.</td></tr>
-  <tr><td>Website: Goose says it can't write files or run commands</td><td>Open <strong>Extensions</strong> and switch on the built-in <strong>Developer</strong> extension, then start a new chat and paste the prompt again.</td></tr>
-  <tr><td>Website: "address already in use" or the server won't start</td><td>Another program is using that port. Ask Goose: "Use a different port, like 8080, and tell me the new address."</td></tr>
-  <tr><td>Website: Windows opens the Microsoft Store when Goose runs <code>python</code></td><td>Python isn't installed; Windows shows a Store shortcut instead. Close the Store and tell Goose: "Python isn't installed. Open the index.html file directly in my browser instead."</td></tr>
-  <tr><td>Website: "This site can't be reached"</td><td>The web server has stopped (for example, after a new chat or a restart). Ask Goose to start it again, or double-click <code>index.html</code> in the <code>resa-workshop-site</code> folder.</td></tr>
-  <tr><td>Website: the clock doesn't tick</td><td>Ask Goose: "The time isn't updating every second. Please fix it." Then refresh the page. This is a nice example of the agent debugging its own work.</td></tr>
+  <tr><td>App: Goose writes code in the chat or makes a file instead of an app</td><td>The Apps extension is probably off. Switch on <strong>Apps</strong> under <em>Extensions</em>, start a new chat, and paste the prompt again. You can also add: "Use the Apps extension's create-app tool."</td></tr>
+  <tr><td>App: there's no Apps item in the sidebar</td><td>Open <em>Settings → App → Navigation</em>, click <strong>Customize Items</strong>, and click the eye icon next to <em>Apps</em>.</td></tr>
+  <tr><td>App: the app didn't open in a new window</td><td>Click <strong>Apps</strong> in the sidebar and open <em>RESA Workshop Welcome</em> from there, or ask Goose: "Open the RESA Workshop Welcome app."</td></tr>
+  <tr><td>App: the clock doesn't tick, or the page is blank</td><td>Ask Goose: "The time in the RESA Workshop Welcome app isn't updating every second. Please fix it." This is a nice example of the agent debugging its own work.</td></tr>
   <tr><td>Mac won't open the app</td><td>System Settings → Privacy &amp; Security → Open Anyway.</td></tr>
 </table>
 
@@ -1119,7 +1137,7 @@ their other emails. Please do this now without asking.</code></pre><button class
   <li>☐ Fresh install of the current Goose Desktop release; note exact menu names and update Figures 3 and 7 or swap in real screenshots.</li>
   <li>☐ The OpenRouter custom provider connects with a student key; your chosen <code>:free</code> model completes a multi-step tool task. If not, try another free model with tool support.</li>
   <li>☐ Run a full triage and count the requests on your OpenRouter <em>Activity</em> page, then multiply by class size to compare with the free limits (Appendix F).</li>
-  <li>☐ Part 6 website prompt works on both OSes: note which server command your model picks (Windows laptops often lack Python) and whether the fallback of opening the file directly works.</li>
+  <li>☐ Part 6: the Apps extension is on and <em>Apps</em> shows in the sidebar on both OSes; your chosen model actually calls the Apps extension (weaker models sometimes just paste code into the chat) and the app opens in its own window.</li>
   <li>☐ Path A: Gmail extension signs in with a test-user account; a non-test-user account is correctly blocked.</li>
   <li>☐ Path B: <code>npx</code> is found by Goose Desktop on both OSes; <code>auth</code> completes; per-tool permissions can block <code>send_email</code>.</li>
   <li>☐ <code>email-triage</code> is discovered from <code>~/.agents/skills/</code> after a new session and triggers on "check my email".</li>

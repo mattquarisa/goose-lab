@@ -40,7 +40,7 @@ Or use the **⬇ Download SKILL.md** button inside the lab guide. Either way, th
 |---|---|
 | 1–2 | Get ready; learn how the AI model, Goose, extensions and skills fit together |
 | 3–5 | Install Goose, connect it to a free AI model through OpenRouter, turn on "ask me first" mode |
-| 6 | First agent task: Goose writes and hosts a small website (live date and time, plus a thank-you message) |
+| 6 | First agent task: Goose builds a small app (live date and time, plus a thank-you message) and hosts it in its **Apps** section |
 | 7 | Connect Gmail by one of two paths: **A**, Google's hosted Gmail server (simplest), or **B**, a Gmail program running on the laptop |
 | 8–9 | Install, test and customize the email-triage skill |
 | 10 | A safety experiment: can an email trick the agent? |
