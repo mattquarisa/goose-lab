@@ -31,7 +31,7 @@ Expect about 75–90 minutes.
 |---|---|
 | `index.html` | **The lab guide.** One web page; double-click to open. |
 | `skills/resa-assistant/SKILL.md` | **The RESA assistant skill** (the first skill, Part 7). Edit it here. |
-| `resa-docs-test/` | **Sample documents** (a made-up student club, RESA) the RESA assistant reads in Part 7, with the source PDFs and their converted Markdown. |
+| `RESA-documentation/` | **Sample documents** (a made-up student club, RESA) the RESA assistant reads in Part 7, with the source PDFs and their converted Markdown. |
 | `course-info/` | **Sample course documents** (made-up courses) for the Part 7 course practice, in the same shape: source PDFs plus their converted Markdown. |
 | `README.md` | This page. |
 | `scripts/`, `.github/` | Behind-the-scenes helpers. You don't need to touch these. |

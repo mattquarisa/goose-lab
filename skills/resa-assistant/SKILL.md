@@ -17,7 +17,7 @@ Answer questions about RESA (the Rotman Engineering Student Association) using o
 
 ## Finding my documents
 
-1. If you don't already know the folder path for this conversation, ask me for it once (for example, `.../goose-lab/resa-docs-test/markdown`), then remember it for the rest of the chat.
+1. If you don't already know the folder path for this conversation, ask me for it once (for example, `.../goose-lab/RESA-documentation/markdown`), then remember it for the rest of the chat.
 2. List the files in that folder and read the ones relevant to my question (for example, an events calendar or a membership FAQ).
 3. A single file may hold many items — an events calendar often lists several events in one table. Read the whole file, not just the first row.
 
