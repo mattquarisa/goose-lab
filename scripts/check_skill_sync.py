@@ -21,7 +21,6 @@ PAGE = ROOT / "index.html"
 
 # Each entry maps a <code id="..."> block in index.html to its source SKILL.md.
 SKILLS = {
-    "skill-text": ROOT / "skills" / "email-triage" / "SKILL.md",
     "skill-text-resa": ROOT / "skills" / "resa-assistant" / "SKILL.md",
     "skill-text-course": ROOT / "skills" / "course-assistant" / "SKILL.md",
 }
