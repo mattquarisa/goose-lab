@@ -31,9 +31,10 @@ Expect about 105–120 minutes, plus about 25 for Gmail Path B.
 | File or folder | What it is |
 |---|---|
 | `index.html` | **The lab guide.** One web page; double-click to open. |
-| `skills/course-assistant/SKILL.md` | **The course-assistant skill** (the first skill, Part 7). Edit it here. |
+| `skills/resa-assistant/SKILL.md` | **The RESA assistant skill** (the first skill, Part 7). Edit it here. |
 | `skills/email-triage/SKILL.md` | **The email-triage skill** (the second skill, Part 9). Edit it here. |
-| `course-info/` | **Sample private documents** (made-up courses) the course assistant reads in Part 7. |
+| `resa-docs-test/` | **Sample documents** (a made-up student club, RESA) the RESA assistant reads in Part 7, with the source PDFs and their converted Markdown. |
+| `course-info/` | **Sample course documents** (made-up courses) for the Part 7 course practice, in the same shape: source PDFs plus their converted Markdown. |
 | `README.md` | This page. |
 | `scripts/`, `.github/` | Behind-the-scenes helpers. You don't need to touch these. |
 | `.gitignore` | Stops password-like files from being uploaded by accident. |
